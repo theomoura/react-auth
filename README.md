@@ -1,12 +1,11 @@
-# Boilerplate for ReactJS project development
+# React Authentication
 
-Sctructured with _atomic design_, _material UI_ and _redux_.
+This project was built using [This React boilerplate project](https://github.com/theomoura/react-starter-kit)
 
 ## Description
 
-This projects uses:
+Simple authentication in ReactJS using Context and Hooks.
 
-- Redux
-- Themes
-- Axios
-- Routing
+Redux for storing user details.
+
+Intercepting axios calls adn adding token in header.
