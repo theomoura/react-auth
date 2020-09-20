@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { getAccessToken } from '../hooks/useAuth';
 
 export const callGetMethod = (endpoint, header) => {
   const headers = header || process.env.HEADERS;
@@ -39,22 +40,30 @@ export const callDeleteMethod = (endpoint, body, header) => {
     });
 };
 
-export const callPatchMethod = (endpoint, body, header) => {
+export const callPutMethod = (endpoint, body, header) => {
   const headers = header || process.env.HEADERS;
-  return Axios.patch(`${endpoint}`, body, { headers })
+  return Axios.put(`${endpoint}`, body, { headers })
     .then((response) => {
       return response;
     })
     .catch((error) => {
       console.error('erro no callPatchMethod', error);
-      return error.response;
+      return handleError(error);
     });
 };
 
-// Axios.interceptors.request.use(async config => {
-//   const token = getToken();
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
+const handleError = (error) => {
+  if (error.response.status === 401) {
+    console.error('Token expired, redirecting user to unauthenticated area');
+    //TODO call signout
+  }
+  return error.response;
+};
+
+Axios.interceptors.request.use(async (config) => {
+  const token = getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});

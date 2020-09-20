@@ -42,6 +42,7 @@ function LoginForm({ onclickLogin, formErrors }) {
         error={formErrors.username}
         value={formValues.username}
         onChange={handleFormValues}
+        helperText={formErrors.username && 'Username is required'}
         id="username"
         label="Username"
         name="username"
@@ -55,6 +56,7 @@ function LoginForm({ onclickLogin, formErrors }) {
         error={formErrors.password}
         value={formValues.password}
         onChange={handleFormValues}
+        helperText={formErrors.password && 'Password is required'}
         name="password"
         label="Password"
         type="password"

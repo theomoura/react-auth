@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 const Home = () => {
   const auth = useAuth();
-  const user = useSelector((state) => state.authReducer.userData);
+  const user = useSelector((state) => state.auth.userData);
 
   const handleLogOut = () => {
     auth.signOut();
@@ -13,8 +13,11 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
-      {/* <div>{user[0].name}</div> */}
+      <h1>Home: Private route</h1>
+      <div>
+        <h3>Name: {user.name}</h3>
+        <h3>Email: {user.email}</h3>
+      </div>
       <Button
         style={{ width: '15rem', marginTop: '5rem' }}
         fullWidth

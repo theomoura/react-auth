@@ -8,4 +8,4 @@ Simple authentication in ReactJS using Context and Hooks.
 
 Redux for storing user details.
 
-Intercepting axios calls adn adding token in header.
+Intercepting axios calls and adding token in header.
