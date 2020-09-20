@@ -3,12 +3,15 @@ import { ThemeProvider } from 'styled-components';
 
 import { main } from './config/themes/';
 import Routes from './router/routes';
+import { AuthProvider } from './hooks/useAuth';
 
 const App = () => {
   return (
-    <ThemeProvider theme={main}>
-      <Routes />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={main}>
+        <Routes />
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
 

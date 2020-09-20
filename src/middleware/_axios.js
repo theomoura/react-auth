@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export const callGetMethod = (endpoint, header) => {
   const headers = header || process.env.HEADERS;
-  return Axios.get(`${endpoint}/`, { headers })
+  return Axios.get(`${endpoint}`, { headers })
     .then((response) => {
       return response;
     })
@@ -14,7 +14,7 @@ export const callGetMethod = (endpoint, header) => {
 
 export const callPostMethod = (endpoint, body, header) => {
   const headers = header || process.env.HEADERS;
-  return Axios.post(`${endpoint}/`, body, { headers })
+  return Axios.post(`${endpoint}`, body, { headers })
     .then((response) => {
       return response;
     })
@@ -41,7 +41,7 @@ export const callDeleteMethod = (endpoint, body, header) => {
 
 export const callPatchMethod = (endpoint, body, header) => {
   const headers = header || process.env.HEADERS;
-  return Axios.patch(`${endpoint}/`, body, { headers })
+  return Axios.patch(`${endpoint}`, body, { headers })
     .then((response) => {
       return response;
     })
@@ -50,3 +50,11 @@ export const callPatchMethod = (endpoint, body, header) => {
       return error.response;
     });
 };
+
+// Axios.interceptors.request.use(async config => {
+//   const token = getToken();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });

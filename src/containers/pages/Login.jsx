@@ -1,12 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { ThemeContext } from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { fetchUserData } from '../../redux/actions/authAction';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { LoginOrganism } from '../../components/organisms';
+import { useAuth } from '../../hooks/useAuth';
 
 const useStyles = makeStyles({
   container: {
@@ -18,11 +15,8 @@ const useStyles = makeStyles({
 });
 
 const Login = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const theme = useContext(ThemeContext);
-  const classes = useStyles(theme);
+  const auth = useAuth();
+  const classes = useStyles();
 
   const [formErrors, setFormErros] = useState({
     username: false,
@@ -41,14 +35,12 @@ const Login = () => {
     return errors;
   };
 
-  const handleSubmitLogin = (event, values) => {
+  const handleSubmitLogin = async (event, values) => {
     !!event && event.preventDefault();
     const errors = validate(values);
 
     if (Object.keys(errors).length === 0) {
-      dispatch(fetchUserData()).then(() => {
-        history.push('/home');
-      });
+      await auth.signIn(values);
     }
   };
 

@@ -1,22 +1,33 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { Home, Login } from '../containers/pages';
+import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
+import { useAuth } from '../hooks/useAuth';
+import { CircularProgress, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    height: '100vh',
+    alignItems: 'center',
+  },
+});
 
 const Routes = () => {
-  return (
-    <Switch>
-      <Route exact path="/" component={Login} />
-      <Route exact path="/home" component={Home} />
-      {/* <Route path="/ops" component={NotFound} /> */}
-      {/* <Route path="*">
-          <Redirect to={{
-            pathname: '/ops',
-            state: { referrer: window && window.location.href, message: '404' }
-          }}
-          />
-        </Route> */}
-    </Switch>
-  );
+  const { isLoggedIn, loading } = useAuth();
+  const classes = useStyles();
+  console.log('loading', loading);
+
+  if (loading) {
+    return (
+      <div className={classes.container}>
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  return isLoggedIn ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
