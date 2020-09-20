@@ -54,7 +54,7 @@ export const callPutMethod = (endpoint, body, header) => {
 
 const handleError = (error) => {
   if (error.response.status === 401) {
-    console.error('Token expired, redirecting user to unauthenticated area');
+    console.error('Token expired, redirecting user to login');
     //TODO call signout
   }
   return error.response;

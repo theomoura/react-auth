@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
@@ -11,14 +13,16 @@ const logger = createLogger({
   predicate: () => true, // eslint-disable-line
 });
 
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  whitelist: ['auth'],
+};
+
+const reducers = persistReducer(persistConfig, rootReducer);
+
 let middlewares = [thunkMiddleware, logger];
 
-export default function configureStore(initialState) {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    applyMiddleware(...middlewares),
-  );
+export const store = createStore(reducers, applyMiddleware(...middlewares));
 
-  return store;
-}
+export const persistor = persistStore(store);

@@ -20,9 +20,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     function getStorageToken() {
-      const tokenStorage = localStorage.getItem(CONFIG.TOKEN);
+      const tokenStorage = sessionStorage.getItem(CONFIG.TOKEN);
       if (tokenStorage) {
-        const tokenStorage = localStorage.getItem(CONFIG.TOKEN);
         setIsLoggedIn(true);
       }
       setLoading(false);
@@ -36,7 +35,7 @@ const AuthProvider = ({ children }) => {
       const response = await authenticate(username, password);
 
       const { accessToken, userInfo } = response.data;
-      localStorage.setItem(CONFIG.TOKEN, accessToken);
+      sessionStorage.setItem(CONFIG.TOKEN, accessToken);
       setIsLoggedIn(true);
       setLoading(false);
       dispatch(fetchUserData(userInfo));
@@ -46,7 +45,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem(CONFIG.TOKEN);
+    sessionStorage.removeItem(CONFIG.TOKEN);
     setIsLoggedIn(false);
   }, []);
 
@@ -81,7 +80,7 @@ const authenticate = async (username, password) => {
 };
 
 const getAccessToken = () => {
-  return localStorage.getItem(CONFIG.TOKEN);
+  return sessionStorage.getItem(CONFIG.TOKEN);
 };
 
 export { AuthProvider, useAuth, getAccessToken };

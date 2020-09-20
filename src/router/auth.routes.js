@@ -5,13 +5,11 @@ import { Login } from '../containers/pages';
 const AuthRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Login} />
-      <Route path="/ops" component={() => <h1>Page not found</h1>} />
+      <Route exact path={'/login'} component={Login} />
       <Route path="*">
         <Redirect
           to={{
-            pathname: '/ops',
-            state: { referrer: window && window.location.href, message: '404' },
+            pathname: '/login',
           }}
         />
       </Route>
