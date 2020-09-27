@@ -8,6 +8,6 @@ Authentication in ReactJS using Context and Hooks.
 
 - Redux for storing user details.
 
-- Intercepting axios calls and adding token in header.
+- Intercepting axios calls for unauthenticated attempts.
 
-- Using Authenticated and Unauthenticated routes.
+- Authenticated and unauthenticated routes using react-router.
