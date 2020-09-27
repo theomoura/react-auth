@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Login } from '../containers/pages';
 
-const AuthRoutes = () => {
+const UnauthenticatedRoutes = () => {
   return (
     <Switch>
       <Route exact path={'/login'} component={Login} />
@@ -17,4 +17,4 @@ const AuthRoutes = () => {
   );
 };
 
-export default AuthRoutes;
+export default UnauthenticatedRoutes;

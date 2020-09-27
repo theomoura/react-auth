@@ -34,11 +34,13 @@ const AuthProvider = ({ children }) => {
       setLoading(true);
       const response = await authenticate(username, password);
 
-      const { accessToken, userInfo } = response.data;
-      sessionStorage.setItem(CONFIG.TOKEN, accessToken);
-      setIsLoggedIn(true);
+      if (response) {
+        const { accessToken, userInfo } = response.data;
+        sessionStorage.setItem(CONFIG.TOKEN, accessToken);
+        setIsLoggedIn(true);
+        dispatch(fetchUserData(userInfo));
+      }
       setLoading(false);
-      dispatch(fetchUserData(userInfo));
     } catch (error) {
       throw new Error(`error when trying to login: ${error}`);
     }
@@ -73,10 +75,18 @@ const useAuth = () => {
 };
 
 const authenticate = async (username, password) => {
-  return await callPostMethod('http://demo5531637.mockable.io/login', {
-    username,
-    password,
-  });
+  const response = await callPostMethod(
+    'http://demo5531637.mockable.io/login',
+    {
+      username,
+      password,
+    },
+  );
+  if (response.status === 201) {
+    return response;
+  }
+  console.error('Error authenticating user');
+  return null;
 };
 
 const getAccessToken = () => {

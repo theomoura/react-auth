@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthRoutes from './auth.routes';
-import AppRoutes from './app.routes';
+import UnauthenticatedRoutes from './auth.routes';
+import AuthenticatedRoutes from './app.routes';
 import { useAuth } from '../hooks/useAuth';
 import { Loading } from '../components/atoms';
 
@@ -11,7 +11,7 @@ const Routes = () => {
     return <Loading />;
   }
 
-  return isLoggedIn ? <AppRoutes /> : <AuthRoutes />;
+  return isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />;
 };
 
 export default Routes;

@@ -3,16 +3,12 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Home } from '../containers/pages';
 import PrivateRoute from './PrivateRoute';
 
-const AppRoutes = () => {
+const AuthenticatedRoutes = () => {
   return (
     <Switch>
       <PrivateRoute exact path="/" component={Home} />
       <Route path="/login">
-        <Redirect
-          to={{
-            pathname: '/',
-          }}
-        />
+        <Redirect to={{ pathname: '/' }} />
       </Route>
       <Route path="/ops" component={() => <h1>Page not found</h1>} />
       <Route path="*">
@@ -27,4 +23,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+export default AuthenticatedRoutes;

@@ -4,8 +4,10 @@ This project was built using [This React boilerplate project](https://github.com
 
 ## Description
 
-Simple authentication in ReactJS using Context and Hooks.
+Authentication in ReactJS using Context and Hooks.
 
-Redux for storing user details.
+- Redux for storing user details.
 
-Intercepting axios calls and adding token in header.
+- Intercepting axios calls and adding token in header.
+
+- Using Authenticated and Unauthenticated routes.
