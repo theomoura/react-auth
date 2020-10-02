@@ -9,7 +9,8 @@ import React, {
 import CONFIG from '../config/localStorage';
 import { callPostMethod } from '../middleware/_axios';
 import { useDispatch } from 'react-redux';
-import { fetchUserData } from '../redux/actions/authAction';
+import { fetchUserData, clearUserData } from '../redux/actions/authAction';
+import { persistor } from '../redux/store';
 
 const AuthContext = createContext({});
 
@@ -48,6 +49,8 @@ const AuthProvider = ({ children }) => {
 
   const signOut = useCallback(() => {
     sessionStorage.removeItem(CONFIG.TOKEN);
+    persistor.purge();
+    dispatch(clearUserData());
     setIsLoggedIn(false);
   }, []);
 
@@ -76,7 +79,7 @@ const useAuth = () => {
 
 const authenticate = async (username, password) => {
   const response = await callPostMethod(
-    'http://demo5531637.mockable.io/login',
+    'https://demo5531637.mockable.io/login',
     {
       username,
       password,
